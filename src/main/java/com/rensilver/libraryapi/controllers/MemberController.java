@@ -6,11 +6,13 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rensilver.libraryapi.dto.MemberDTO;
 import com.rensilver.libraryapi.entities.Member;
+import com.rensilver.libraryapi.exceptions.MemberNotFoundException;
 import com.rensilver.libraryapi.services.MemberService;
 
 @RestController
@@ -26,4 +28,12 @@ public class MemberController {
 		List<MemberDTO> listDto = list.stream().map(x -> new MemberDTO(x)).collect((Collectors.toList()));
 		return ResponseEntity.ok().body(listDto);
 	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<MemberDTO> findById(@PathVariable String id) throws MemberNotFoundException {
+		Member member = memberService.findById(id);
+		return ResponseEntity.ok().body(new MemberDTO(member));
+	}
+	
+	
 }

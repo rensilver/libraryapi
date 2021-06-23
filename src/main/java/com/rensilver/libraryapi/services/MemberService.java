@@ -30,9 +30,20 @@ public class MemberService {
 		return memberRepository.insert(entity);
 	}
 	
+	public Member update(Member entity) throws MemberNotFoundException {
+		Member obj = findById(entity.getId());
+		updateData(obj, entity);
+		return memberRepository.save(obj);
+	}
+
 	public void deleteById(String id) throws MemberNotFoundException {
 		findById(id);
 		memberRepository.deleteById(id);
+	}
+	
+	private void updateData(Member obj, Member entity) {
+		obj.setName(entity.getName());
+		obj.setCpf(entity.getCpf());
 	}
 	
 	public Member fromDTO(MemberDTO memberDto) {

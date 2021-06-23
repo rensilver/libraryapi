@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,11 +42,19 @@ public class MemberController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> findById(@RequestBody MemberDTO memberDto) {
+	public ResponseEntity<Void> insert(@RequestBody MemberDTO memberDto) {
 		Member member = memberService.fromDTO(memberDto);
 		member = memberService.insertMember(member);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(member.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<Void> update(@PathVariable String id, @RequestBody MemberDTO memberDto) throws MemberNotFoundException {
+		Member member = memberService.fromDTO(memberDto);
+		member.setId(id);
+		member = memberService.update(member);
+		return ResponseEntity.noContent().build();
 	}
 	
 	@DeleteMapping("/{id}")

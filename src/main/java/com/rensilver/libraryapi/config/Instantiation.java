@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import com.rensilver.libraryapi.dto.LoanAuthorDTO;
 import com.rensilver.libraryapi.entities.Book;
 import com.rensilver.libraryapi.entities.Member;
 import com.rensilver.libraryapi.repositories.BookRepository;
@@ -30,10 +31,11 @@ public class Instantiation implements CommandLineRunner {
 		Member gustavo = new Member(null, "Gustavo Silva", "07899811405");
 		Member rodrigo = new Member(null, "Rodrigo Mendes", "74888936501");
 		
-		Book bookOne = new Book(null, "Harry Potter e o Cálice de Fogo", "J.K. Rowling", "Emprestado", maria);
-		Book bookTwo = new Book(null, "O Senhor dos Anéis - O Retorno do Rei", "J.R.R. Tolkien", "Emprestado", maria);
-		
 		memberRepository.saveAll(Arrays.asList(maria, gustavo, rodrigo));
+		
+		Book bookOne = new Book(null, "Harry Potter e o Cálice de Fogo", "J.K. Rowling", "Emprestado", new LoanAuthorDTO(maria));
+		Book bookTwo = new Book(null, "O Senhor dos Anéis - O Retorno do Rei", "J.R.R. Tolkien", "Emprestado", new LoanAuthorDTO(maria));
+		
 		bookRepository.saveAll(Arrays.asList(bookOne, bookTwo));
 		
 		maria.getBooks().addAll(Arrays.asList(bookOne, bookTwo));

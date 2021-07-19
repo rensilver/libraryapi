@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.rensilver.libraryapi.dto.MemberDTO;
+import com.rensilver.libraryapi.entities.Book;
 import com.rensilver.libraryapi.entities.Member;
 import com.rensilver.libraryapi.exceptions.MemberNotFoundException;
 import com.rensilver.libraryapi.services.MemberService;
@@ -63,4 +64,9 @@ public class MemberController {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@GetMapping("/{id}/books")
+	public ResponseEntity<List<Book>> findBooks(@PathVariable String id) throws MemberNotFoundException {
+		Member member = memberService.findById(id);
+		return ResponseEntity.ok().body(member.getBooks());
+	}
 }

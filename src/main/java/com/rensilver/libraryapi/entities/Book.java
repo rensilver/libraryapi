@@ -5,6 +5,8 @@ import java.io.Serializable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.rensilver.libraryapi.dto.LoanAuthorDTO;
+
 @Document
 public class Book implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -14,18 +16,18 @@ public class Book implements Serializable {
 	private String title;
 	private String author;
 	private String status;
-	private Member borrowedWithMember;
+	private LoanAuthorDTO loanAuthor;
 	
 	public Book() {
 	}
 
-	public Book(String id, String title, String author, String status, Member borrowedWithMember) {
+	public Book(String id, String title, String author, String status, LoanAuthorDTO loanAuthor) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.author = author;
 		this.status = status;
-		this.borrowedWithMember = borrowedWithMember;
+		this.loanAuthor = loanAuthor;
 	}
 
 	public String getId() {
@@ -60,12 +62,12 @@ public class Book implements Serializable {
 		this.status = status;
 	}
 
-	public Member getBorrowedWithMember() {
-		return borrowedWithMember;
+	public LoanAuthorDTO getLoanAuthor() {
+		return loanAuthor;
 	}
 
-	public void setBorrowedWithMember(Member borrowedWithMember) {
-		this.borrowedWithMember = borrowedWithMember;
+	public void setLoanAuthor(LoanAuthorDTO loanAuthor) {
+		this.loanAuthor = loanAuthor;
 	}
 
 	@Override

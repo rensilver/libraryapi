@@ -1,8 +1,11 @@
 package com.rensilver.libraryapi.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "member")
@@ -13,6 +16,9 @@ public class Member implements Serializable {
 	private String id;
 	private String name;
 	private String cpf;
+	
+	@DBRef(lazy = true)
+	private List<Book> books = new ArrayList<>();
 	
 	public Member() {
 	}
@@ -46,6 +52,14 @@ public class Member implements Serializable {
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
 	}
 
 	@Override

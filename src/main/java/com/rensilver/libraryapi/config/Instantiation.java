@@ -38,19 +38,30 @@ public class Instantiation implements CommandLineRunner {
 		
 		memberRepository.saveAll(Arrays.asList(maria, gustavo, rodrigo));
 		
-		Book bookOne = new Book(null, "Harry Potter e o Cálice de Fogo", "J.K. Rowling", "Emprestado", new LoanAuthorDTO(maria));
-		Book bookTwo = new Book(null, "O Senhor dos Anéis - O Retorno do Rei", "J.R.R. Tolkien", "Emprestado", new LoanAuthorDTO(maria));
+		Book bookOne = new Book(null, "Harry Potter e o Cálice de Fogo", "J.K. Rowling", "Emprestado");
+		Book bookTwo = new Book(null, "O Senhor dos Anéis - O Retorno do Rei", "J.R.R. Tolkien", "Emprestado");
+		
+		LoanAuthorDTO loanAuthorOne = new LoanAuthorDTO(maria);
+		LoanAuthorDTO loanAuthorTwo = new LoanAuthorDTO(gustavo);
+		
+		bookOne.getLoanAuthors().addAll(Arrays.asList(loanAuthorOne, loanAuthorTwo));
+		bookTwo.getLoanAuthors().addAll(Arrays.asList(loanAuthorTwo));
 		
 		LocalDate dateIssuedOne = LocalDate.parse("10/06/2021", formatter);
 		LocalDate dateIssuedTwo = LocalDate.parse("10/07/2021", formatter);
+		LocalDate dateIssuedThree = LocalDate.parse("10/08/2021", formatter);
 		LocalDate dueDateOne = LocalDate.parse("10/07/2021", formatter);
 		LocalDate dueDateTwo = LocalDate.parse("10/08/2021", formatter);
+		LocalDate dueDateThree = LocalDate.parse("10/09/2021", formatter);
 		LocalDate dateReturnedOne = LocalDate.parse("28/06/2021", formatter);
 		LocalDate dateReturnedTwo = LocalDate.parse("19/07/2021", formatter);
+		LocalDate dateReturnedThree = LocalDate.parse("30/08/2021", formatter);
 		LoanDTO loanOne = new LoanDTO(dateIssuedOne, dueDateOne, dateReturnedOne, new LoanAuthorDTO(maria));
-		LoanDTO loanTwo = new LoanDTO(dateIssuedTwo, dueDateTwo, dateReturnedTwo, new LoanAuthorDTO(maria));
+		LoanDTO loanTwo = new LoanDTO(dateIssuedTwo, dueDateTwo, dateReturnedTwo, new LoanAuthorDTO(gustavo));
+		LoanDTO loanThree = new LoanDTO(dateIssuedThree, dueDateThree, dateReturnedThree, new LoanAuthorDTO(gustavo));
 		
-		bookOne.getLoans().addAll(Arrays.asList(loanOne, loanTwo));
+		bookOne.getLoans().addAll(Arrays.asList(loanOne, loanThree));
+		bookTwo.getLoans().addAll(Arrays.asList(loanTwo));
 		
 		bookRepository.saveAll(Arrays.asList(bookOne, bookTwo));
 		

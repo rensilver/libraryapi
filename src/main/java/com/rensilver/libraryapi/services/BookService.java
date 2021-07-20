@@ -1,5 +1,7 @@
 package com.rensilver.libraryapi.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +19,9 @@ public class BookService {
 		Book book = bookRepository.findById(id)
 				.orElseThrow(() -> new BookNotFoundException(id));
 		return book;
+	}
+	
+	public List<Book> findByTitle(String text) {
+		return bookRepository.findByTitleContainingIgnoreCase(text);
 	}
 }

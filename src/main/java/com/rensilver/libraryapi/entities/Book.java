@@ -19,20 +19,18 @@ public class Book implements Serializable {
 	private String title;
 	private String author;
 	private String status;
-	private LoanAuthorDTO loanAuthor;
-	
+	private List<LoanAuthorDTO> loanAuthors = new ArrayList<>();
 	private List<LoanDTO> loans = new ArrayList<>();
 	
 	public Book() {
 	}
 
-	public Book(String id, String title, String author, String status, LoanAuthorDTO loanAuthor) {
+	public Book(String id, String title, String author, String status) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.author = author;
 		this.status = status;
-		this.loanAuthor = loanAuthor;
 	}
 
 	public String getId() {
@@ -67,12 +65,12 @@ public class Book implements Serializable {
 		this.status = status;
 	}
 
-	public LoanAuthorDTO getLoanAuthor() {
-		return loanAuthor;
+	public List<LoanAuthorDTO> getLoanAuthors() {
+		return loanAuthors;
 	}
 
-	public void setLoanAuthor(LoanAuthorDTO loanAuthor) {
-		this.loanAuthor = loanAuthor;
+	public void setLoanAuthor(List<LoanAuthorDTO> loanAuthors) {
+		this.loanAuthors = loanAuthors;
 	}
 	
 	public List<LoanDTO> getLoans() {
